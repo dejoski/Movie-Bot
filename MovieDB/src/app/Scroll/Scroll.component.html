@@ -1,0 +1,77 @@
+<mat-card align="center" *ngIf="this.start" >
+<strong>{{this.error}}</strong>
+   <!-- <mat-card-title-group *ngIf="!this.submitted"> -->
+    <mat-card-title>{{ this.json[this.index].original_title }} </mat-card-title>
+    <mat-card-subtitle>{{ this.json[this.index].tagline }}</mat-card-subtitle>
+    <!-- <img matCardImage src="none" /> -->
+  <!-- </mat-card-title-group> -->
+  <mat-progress-bar mode="determinate" value="{{this.progress}}"></mat-progress-bar><br>
+  <div align="center" *ngIf="this.submitted">
+    <mat-progress-spinner
+    class="example-margin"
+    [color]="'primary'"
+    [mode]="'indeterminate'">
+</mat-progress-spinner>
+Loading
+<br>
+Creating Your Personal AI - Please Wait.
+<br>
+(This may take a few minutes)
+<br>
+</div>
+
+  <div align="center" *ngIf="!this.submitted">
+    <div
+      class="cover"
+      [ngStyle]="{ 'background-image': 'url(' + this.src + ')' }"
+      [ngStyle]="{'visibility':this.image}"></div>
+    <div *ngIf="this.image=='hidden'">
+      <mat-progress-spinner
+    class="example-margin"
+    [color]="'primary'"
+    [mode]="'indeterminate'" class="mini" [ngStyle]="{'border':'none','margin':'auto', 'position':'absolute', 'left':0,'right':0}">
+  </mat-progress-spinner>
+      <!-- <img class="mini" [ngStyle]="{'border':'none','margin':'auto', 'position':'absolute', 'left':0,'right':0}"  src="assets/loader.gif"/> -->
+    </div>
+    <div [ngStyle]="{'visibility':this.image}">
+      <img class="mini"  src="{{ this.src }}" (load)="toggleLoad()" >
+    </div>
+  </div>
+  <mat-card-content *ngIf="!this.submitted">
+    <p>Release Date: {{ this.json[this.index].release_date }}</p>
+  </mat-card-content>
+  <mat-card-actions align="center" *ngIf="!this.submitted">
+    <button mat-flat-button color="primary" (click)="lastPoster()">
+      (1) Previous ⏮️
+    </button>
+    <button mat-raised-button color="accent" (click)="nextPoster(1)">
+      (2) Like 👍
+    </button>
+    <button mat-raised-button color="warn" (click)="nextPoster(-1)">
+      (3) Dislike 👎
+    </button>
+    <button mat-flat-button color="primary" (click)="nextPoster(0)" mat-button>
+      (4) Unseen Movie ❔
+    </button>
+  </mat-card-actions>
+  <mat-card-content *ngIf="!this.submitted">
+    <p>{{ this.json[this.index].overview }}</p>
+  </mat-card-content>
+  <mat-card-footer *ngIf="!this.submitted">
+    <br />
+    Please enter a username before clicking "Complete -> Train AI"
+    <form #form action='http://xtrodev.info/python/api/v2/test_response' method='post'>
+      <input type="text" [(ngModel)]="this.username" name="username" placeholder="Username" required/>
+      <input type="hidden" name="data" value="{{this.final}}"><br>
+      <button mat-stroked-button type="submit" class="btn btn-success" [disabled]="!username" (click)="toggleSubmit($event);">Complete -> Train AI</button>
+      <!-- form.submit(); -->
+    </form>
+  </mat-card-footer>
+</mat-card>
+
+<!-- <form action="http://xtrodev.info/python/api/v2/test_response" method="post">
+  hidden: <input type="hidden" name="data" value="{{this.json}}"><br>
+  not hidden: <input type="text" name="data2" value="{{this.src}}"><br>
+  <input type="submit" value="Submit">
+</form> -->
+

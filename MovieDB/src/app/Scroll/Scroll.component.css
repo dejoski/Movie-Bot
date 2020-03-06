@@ -1,0 +1,25 @@
+mat-card{
+  margin: auto;
+  max-width: 70%;
+}
+
+.mini {
+  width: auto;
+  height: 20em;
+  border: 1px solid black;
+  filter: blur(0px);
+}
+
+.mat-card-image:first-child{
+  margin-top: 0;
+}
+
+.cover{
+  filter: blur(5px);
+  left: 0;
+  position: absolute;
+  right: 0;
+  height:20em;
+  background-size: cover;
+  background-position:center
+}
